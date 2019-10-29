@@ -1,25 +1,24 @@
 <template>
   <div id="app">
+    <navbar></navbar>
     <div class="columns">
-      <div class="column is-three-quarters">
-        <gmap></gmap>
-      </div>
-      <div class="column testscroll">
-        <places-list></places-list>
-      </div>
+      <gmap></gmap>
+      <places-list></places-list>
     </div>
   </div>
 </template>
 
 <script>
-import Gmap from "./components/Gmap.vue";
+import Navbar from "./components/Navbar.vue";
+import Gmap from "./components/MapContainer.vue";
 import PlacesList from "./components/PlacesList.vue";
 
 export default {
   name: "app",
   components: {
-  'Gmap': Gmap,
-  'places-list': PlacesList
+  Navbar,
+  Gmap,
+  PlacesList
   }
 };
 </script>
@@ -34,7 +33,6 @@ export default {
 
 .testscroll {
   overflow: auto;
-  margin: 5px;
-  height: 98vh;
+  height: 90vh;
 }
 </style>
