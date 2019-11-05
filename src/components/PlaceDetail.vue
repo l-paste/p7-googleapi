@@ -15,7 +15,7 @@
           <p class="title is-4">{{ restaurant.restaurantName }}</p>
           <p class="subtitle is-6">{{ restaurant.address }}</p>
           <b-rate v-model="restaurant.avgRating"></b-rate>
-          </div>
+        </div>
       </div>
 
       <!-- Contenu -->
@@ -26,9 +26,10 @@
             {{ !props.open ? 'Voir les commentaires' : 'Masquer les commentaires' }}
           </a>
           <ul>
-            <li v-for="rating of restaurant.ratings">
+            <li v-for="rating of restaurant.ratings" :key="rating.author">
               <p>{{ rating.comment }}</p>
-              <b-rate v-model="rating.stars"></b-rate>
+              <stars :maxs="5" size="is-small" :rate="rating.stars" is-disabled></stars>
+              <!-- <b-rate v-model="rating.stars"></b-rate> -->
             </li>
           </ul>
         </b-collapse>
@@ -38,7 +39,14 @@
 </template>
 
 <script>
+import PlaceModal from "./PlaceModal.vue";
+import Stars from "./Stars.vue";
+
 export default {
+  components: {
+    PlaceModal,
+    Stars
+  },
   props: ["restaurant"]
 };
 </script>

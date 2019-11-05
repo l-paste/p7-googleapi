@@ -39,7 +39,7 @@
       // Appel de InitMap, et des listeners
       this.initMap();
       this.addChangeBoundsListener();
-      // this.openAddRestaurant();
+      this.openAddRestaurant();
       this.dragEndListener();
     },
     methods: {
@@ -73,12 +73,12 @@
         })
       },
 
-      // openAddRestaurant() {
-      //   // Emet l'event pour ajouter un restaurant au click sur la carte
-      //   this.google.maps.event.addListener(this.map, 'click', (event) => {
-      //     this.$emit('map-clicked', event);
-      //   })
-      // },
+      openAddRestaurant() {
+        // Emet l'event pour ajouter un restaurant au click sur la carte
+        this.google.maps.event.addListener(this.map, 'click', (event) => {
+          this.$emit('map-clicked', event);
+        })
+      },
     }
   };
 </script>

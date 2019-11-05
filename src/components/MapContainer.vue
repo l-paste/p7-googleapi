@@ -1,29 +1,50 @@
 <template>
-<div class="column is-three-quarters">
-  <places-map
-    :center="customCenter"
-    :defaultCenter="defaultCenter"
-    @map-initialized="initialize"
-    @map-bounds-changed="selectVisibleMarker"
-    @drag-ended="updateLocationsList"
-  >
-    <template v-slot:default="{ google, map }">
-      <markers v-for="marker in markers" :key="marker.id" :marker="marker" :map="map" :google="google"></markers>
-      <markers v-if="userMarker !== {}" :marker="userMarker" :map="map" :google="google"></markers>
-    </template>
-  </places-map>
-</div>
+  <div class="column is-three-quarters">
+    <places-map
+      :center="customCenter"
+      :defaultCenter="defaultCenter"
+      @map-initialized="initialize"
+      @map-bounds-changed="selectVisibleMarker"
+      @drag-ended="updateLocationsList"
+      @map-clicked="openAddRestaurant"
+    >
+      <template v-slot:default="{ google, map }">
+        <markers
+          v-for="marker in markers"
+          :key="marker.id"
+          :marker="marker"
+          :map="map"
+          :google="google"
+        ></markers>
+        <markers v-if="userMarker !== {}" :marker="userMarker" :map="map" :google="google"></markers>
+      </template>
+    </places-map>
+    <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="true"></b-loading>
+
+    <b-modal
+      :active.sync="isComponentModalActive"
+      has-modal-card
+      trap-focus
+      aria-role="dialog"
+      aria-modal
+    >
+      <add-place :place-lat="addPlaceLat" :place-lng="addPlaceLng"></add-place>
+    </b-modal>
+
+  </div>
 </template>
 
 <script>
 // import MarkerClusterer from "@google/markerclusterer";
 import PlacesMap from "./PlacesMap";
 import Markers from "./Markers";
+import AddPlace from "./AddPlaceForm";
 
 export default {
   components: {
     PlacesMap,
-    Markers
+    Markers,
+    AddPlace
   },
   data: function() {
     return {
@@ -48,7 +69,12 @@ export default {
       customCenter: {
         lat: null,
         lng: null
-      }
+      },
+      isLoading: true,
+      isFullPage: true,
+      isComponentModalActive: false,
+      addPlaceLat: null,
+      addPlaceLng: null
     };
   },
 
@@ -108,10 +134,15 @@ export default {
       console.log("fonction dragend");
       const location = this.map.getCenter();
       const service = new this.google.maps.places.PlacesService(this.map);
-      // this.$store.dispatch("getData", {
       //   service,
       //   location
       // });
+    },
+
+    openAddRestaurant(event) {
+      this.addPlaceLat = event.latLng.lat();
+      this.addPlaceLng = event.latLng.lng();
+      this.isComponentModalActive = true;
     },
 
     setPlaces(location) {
@@ -121,6 +152,7 @@ export default {
         service,
         location
       });
+      this.isLoading = false;
     }
   },
 
