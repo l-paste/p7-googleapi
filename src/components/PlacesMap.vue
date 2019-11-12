@@ -48,6 +48,8 @@
         const options = {
           center: this.defaultCenter,
           zoom: 18,
+          minZoom: 17,
+          fullscreenControl: false,
           styles: [
   {
     "elementType": "geometry",

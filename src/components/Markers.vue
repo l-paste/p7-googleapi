@@ -34,8 +34,9 @@
         position: this.marker.position,
         map: this.map,
         marker: this.marker,
-        // icon: this.getIconUrl(this.marker.type)
+        icon: this.getIconUrl(this.marker.type)
       })
+      
       // Ajout du listener click sur icon ouvre composant ReadComments
       this.mapMarker.addListener('click', () => {
           if (this.marker.type !== 'user') {
@@ -43,6 +44,8 @@
             this.$store.commit("modalSetup", this.marker.id);
           }
         });
+      
+        
     },
     // Pour supprimer les markers avant de les redessiner
     beforeDestroy() {
@@ -54,13 +57,13 @@
         let icon
         switch (this.marker.type) {
           case 'restaurant':
-            icon = 'https://img.icons8.com/ios/50/000000/restaurant-table.png';
+            icon = 'https://img.icons8.com/office/40/000000/restaurant.png';
             break;
           case 'user':
-            icon = 'https://img.icons8.com/color/48/000000/marker.png';
+            icon = 'https://img.icons8.com/dusk/40/000000/marker.png';
             break;
           default:
-            icon = 'https://img.icons8.com/ultraviolet/48/000000/record.png';
+            icon = '';
             break;
         }
         return icon

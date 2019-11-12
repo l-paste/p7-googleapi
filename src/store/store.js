@@ -149,7 +149,7 @@ export const store = new Vuex.Store({
         service,
         location
       );
-      // console.log(restaurantList)
+      // console.log(restaurantList);
       restaurantList.forEach(newRestaurant =>
         context.commit("addRestaurant", { newRestaurant })
       );
