@@ -9,7 +9,9 @@ export const store = new Vuex.Store({
     restaurantList: [],
     visibleRestaurant: [],
     sortValue: [],
-    boundsValue: {}
+    boundsValue: {},
+    isPlaceModalActive: false,
+    placeIdDetail: null
   },
   getters: {
     // Obtenir l'ID des restaurants
@@ -23,6 +25,14 @@ export const store = new Vuex.Store({
     // Obtenir la liste des restos
     getRestaurantList: state => {
       return state.visibleRestaurant;
+    },
+
+    getModalState: state => {
+      return state.isPlaceModalActive;
+    },
+    
+    getModalId: state => {
+      return state.placeIdDetail;
     },
 
     // Obtenir la valeur du tri (par note)
@@ -75,6 +85,16 @@ export const store = new Vuex.Store({
 
     setSortValue: (state, range) => {
       state.sortValue = range;
+    },
+
+    modalSetup: (state,modalId) => {
+      state.isPlaceModalActive = true;
+      state.placeIdDetail = modalId;
+    },
+
+    resetModal: (state) => {
+      state.isPlaceModalActive = false;
+      state.placeIdDetail = null;
     },
 
     // Ajoute un restaurant en ajoutant automatiquement un champ avgRating et un ID (le dernier +1)

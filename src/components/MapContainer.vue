@@ -1,5 +1,7 @@
 <template>
   <div class="column is-three-quarters">
+    
+    <!-- Container carte -->
     <places-map
       :center="customCenter"
       :defaultCenter="defaultCenter"
@@ -19,10 +21,13 @@
         <markers v-if="userMarker !== {}" :marker="userMarker" :map="map" :google="google"></markers>
       </template>
     </places-map>
+
+    <!-- Loader -->
     <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="true"></b-loading>
 
+    <!-- Modal pour ajouter des restaurants -->
     <b-modal
-      :active.sync="isComponentModalActive"
+      :active.sync="isAddPlaceModalActive"
       has-modal-card
       trap-focus
       aria-role="dialog"
@@ -57,7 +62,6 @@ export default {
       marker: null,
       map: null,
       bounds: null,
-      infoWindow: null,
       position: {
         lat: null,
         lng: null
@@ -72,7 +76,7 @@ export default {
       },
       isLoading: true,
       isFullPage: true,
-      isComponentModalActive: false,
+      isAddPlaceModalActive: false,
       addPlaceLat: null,
       addPlaceLng: null
     };
@@ -131,9 +135,9 @@ export default {
     },
 
     updateLocationsList() {
-      console.log("fonction dragend");
-      const location = this.map.getCenter();
-      const service = new this.google.maps.places.PlacesService(this.map);
+      // console.log("fonction dragend");
+      // const location = this.map.getCenter();
+      // const service = new this.google.maps.places.PlacesService(this.map);
       //   service,
       //   location
       // });
@@ -142,7 +146,7 @@ export default {
     openAddRestaurant(event) {
       this.addPlaceLat = event.latLng.lat();
       this.addPlaceLng = event.latLng.lng();
-      this.isComponentModalActive = true;
+      this.isAddPlaceModalActive = true;
     },
 
     setPlaces(location) {
@@ -181,9 +185,4 @@ export default {
 </script>
 
 <style>
-#mapgoogle {
-  border: 1px dashed green;
-  margin: 10px;
-  height: 90vh;
-}
 </style>

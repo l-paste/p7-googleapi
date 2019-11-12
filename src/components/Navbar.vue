@@ -1,14 +1,14 @@
 <template>
-    <b-navbar>
+    <b-navbar fixed-top class="navbar-background">
         <template slot="brand">
-            <b-navbar-item :to="{ path: '/' }">
+            <b-navbar-item>
                 <img
-                    src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
+                    src="../assets/logo.png"
                     alt="Lightweight UI components for Vue.js based on Bulma"
                 >
             </b-navbar-item>
         </template>
-        <template slot="start">
+        <!-- <template slot="start">
             <b-navbar-item href="#">
                 Home
             </b-navbar-item>
@@ -23,7 +23,7 @@
                     Contact
                 </b-navbar-item>
             </b-navbar-dropdown>
-        </template>
+        </template> -->
 
         <template slot="end">
             <b-navbar-item tag="div">
@@ -47,5 +47,7 @@ export default {
 </script>
 
 <style scoped>
-
+.navbar-background {
+    background-color: #FFECE2;
+}
 </style>

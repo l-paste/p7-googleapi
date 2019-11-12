@@ -1,9 +1,8 @@
-<template>
-  <div class="card-place">
+<div class="card-place">
     <div class="card-image">
       <figure class="image is-4by3">
         <img
-          :src="'https://maps.googleapis.com/maps/api/streetview?size=400x400&location='+restaurant.lat+','+restaurant.long+'&fov=80&heading=70&pitch=0&key=AIzaSyDWjR8Rt6VNWdTjznzLanMbGWALoewrLeo'"
+          :src="'https://maps.googleapis.com/maps/api/streetview?size=1280x960&location='+restaurant.lat+','+restaurant.long+'&fov=80&heading=70&pitch=0&key=AIzaSyDWjR8Rt6VNWdTjznzLanMbGWALoewrLeo'"
           alt="Photo Google Street View"
         />
       </figure>
@@ -36,23 +35,5 @@
       </div>
     </div>
   </div>
-</template>
 
-<script>
-import PlaceModal from "./PlaceModal.vue";
-import Stars from "./Stars.vue";
-
-export default {
-  components: {
-    PlaceModal,
-    Stars
-  },
-  props: ["restaurant"]
-};
-</script>
-
-<style scoped>
-.card-place {
-  border: 1px dashed green;
-}
-</style>
+  v-model="newRestaurant.restaurantName"

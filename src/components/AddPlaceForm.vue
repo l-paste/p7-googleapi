@@ -1,6 +1,6 @@
 <template>
   <form action>
-    <div class="modal-card" style="width: auto">
+    <div class="modal-card" style="width: auto; margin-left: 10px; margin-right: 10px;">
       <header class="modal-card-head">
         <p class="modal-card-title">Ajouter un restaurant</p>
       </header>
@@ -16,7 +16,7 @@
       </section>
       <footer class="modal-card-foot">
         <button class="button" type="button" @click="$parent.close()">Fermer</button>
-        <button class="button is-primary" @click="checkForm">Confirmer</button>
+        <button class="button is-primary" @click="sendNewRestaurant" :disabled="isDisabled">Confirmer</button>
       </footer>
     </div>
   </form>
@@ -36,29 +36,22 @@ export default {
       }
     },
     methods: {
-      checkForm: function(e) {
-        // Contrôle les champs required du formulaire
-        if (this.newRestaurant.restaurantName && this.newRestaurant.address) {
-          this.sendNewRestaurant();
-        } else {
-          window.alert('Merci de renseigner le formulaire au complet');
-        }
+      sendNewRestaurant(e) {
         e.preventDefault();
-      },
-      sendNewRestaurant() {
         // Ajout du nouveau restaurant au Store
         this.$store.commit('addRestaurant', {
           newRestaurant: this.newRestaurant
         });
         // Ferme le composant AddRestaurant, évite de pouvoir envoyer plusieurs fois les mêmes données
         this.$parent.close()
-      },
-      restore() {
-        this.placeToAdd.placeName = '';
-        this.placeToAdd.placeAddress = '';
-      },
+        
+      }
+    },
+    computed: {
+    isDisabled() {
+      return !this.newRestaurant.restaurantName || !this.newRestaurant.address;
     }
-    
+  } 
 };
 </script>
 

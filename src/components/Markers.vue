@@ -24,7 +24,8 @@
     },
     data() {
       return {
-        mapMarker: null
+        mapMarker: null,
+        modalId: null,
       }
     },
     mounted() {
@@ -38,9 +39,8 @@
       // Ajout du listener click sur icon ouvre composant ReadComments
       this.mapMarker.addListener('click', () => {
           if (this.marker.type !== 'user') {
-            this.$router.push({
-              path: `/read-comments/${this.marker.id}`
-            });
+            this.modalId = this.marker.id;
+            this.$store.commit("modalSetup", this.marker.id);
           }
         });
     },

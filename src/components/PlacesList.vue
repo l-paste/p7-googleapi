@@ -1,30 +1,41 @@
 <template>
-  <div class="column testscroll">
-    <rating-slider></rating-slider>
-    <div v-for="(restaurant, index) in getRestaurantList" :key="restaurant.restaurantName">
-      <place-detail :restaurant="restaurant" :index="index"></place-detail>
+<article class="media" @click="openModal(restaurant.ID)">
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <span class="format-font is-size-4">{{ restaurant.restaurantName }}</span>
+        <br>
+        <small>{{ restaurant.address }}</small>
+      </p>
     </div>
   </div>
+  <div class="media-right">
+    <stars :maxs="5" size="default" :rate="restaurant.avgRating" is-disabled></stars>
+  </div>
+</article>
 </template>
 
-
 <script>
-import RatingSlider from "./RatingSlider.vue";
-import PlaceDetail from "./PlaceDetail.vue";
+import Stars from "./Stars.vue";
 
 export default {
-components: {
-      PlaceDetail,
-      RatingSlider
-    },
-computed: {
-     // Getters du Store qui retourne visibleRestaurant.
-     getRestaurantList() {
-       return _.orderBy(this.$store.getters.getRestaurantList, 'avgRating', 'desc');
-     }
-   }
+  components: {
+    Stars
+  },
+  props: ["restaurant"],
+  methods: {
+      openModal(ID) {
+       this.$store.commit("modalSetup", ID);
+      }
+  }
 };
 </script>
 
 <style scoped>
+.media {
+  padding: 5px;
+  cursor: pointer;
+  color: #191919;
+  
+}
 </style>

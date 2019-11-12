@@ -7,7 +7,7 @@ const axios = require("axios");
 // Appel Axios à la liste restaurantList.json, et de GooglePlaces, réutilisée dans le Store.
 async function getRestaurantList(service, location) {
   try {
-    const jsonPromise = axios.get("http://localhost:8080/liste.json"); // Restaurants en local
+    const jsonPromise = axios.get("liste.json"); // Restaurants en local
     const placesPromise = getPlacesPromise(service, location); // Restaurants via GooglePlaces
 
     // On attend la résolution des promesses, avec affectation par décomposition (const []) dans jSonResult et placesResult
@@ -37,7 +37,7 @@ async function getPlacesPromise(service, location) {
     return service.nearbySearch(
       {
         location,
-        radius: 1000,
+        radius: 500,
         type: ["restaurant"]
       },
       async function(result, status) {
