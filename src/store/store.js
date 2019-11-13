@@ -118,10 +118,7 @@ export const store = new Vuex.Store({
       // Utilisation de reduce pour obtenir le dernier ID et lui ajouter +1
       function getLastId() {
         const lastId = state.placesFullList.reduce((acc, { id }) => {
-          if (acc < id) {
-            return id;
-          }
-          return acc;
+          return id;
         }, 0);
         return lastId + 1;
       }
@@ -143,10 +140,8 @@ export const store = new Vuex.Store({
   actions: {
     getData: async function(context, { service, location }) {
 
-      const loadedPlaces = await loadplaces.loadPlaces(
-        service,
-        location
-      );
+      const loadedPlaces = await loadplaces.loadPlaces(service, location);
+      
       loadedPlaces.forEach(newPlace =>
         context.commit("addPlace", { newPlace })
       );

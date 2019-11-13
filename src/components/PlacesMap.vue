@@ -47,8 +47,9 @@
         const element = this.$refs.mainMap
         const options = {
           center: this.defaultCenter,
-          zoom: 18,
+          zoom: 17,
           minZoom: 17,
+          maxZoom: 18,
           fullscreenControl: false,
           styles: [
   {
