@@ -1,6 +1,6 @@
 [
    {
-      "ID":1,
+      "id":1,
       "restaurantName":"Bronco",
       "address":"39 Rue des Petites Écuries, 75010 Paris",
       "description": "Très bon restaurant de Plancha, cuisine généreuse",
@@ -21,7 +21,7 @@
    },
    
    {
-      "ID":2,
+      "id":2,
       "restaurantName":"Babalou",
       "address":"4 Rue Lamarck, 75018 Paris",
       "description": "Des pizzas comme en Italie, fine et gourmande",

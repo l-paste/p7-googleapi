@@ -37,7 +37,7 @@
       // Appel de InitMap, et des listeners
       this.initMap();
       this.addChangeBoundsListener();
-      this.openAddRestaurant();
+      this.openAddPlace();
       this.dragEndListener();
     },
     methods: {
@@ -287,7 +287,7 @@
         })
       },
 
-      openAddRestaurant() {
+      openAddPlace() {
         // Emet l'event pour ajouter un restaurant au click sur la carte
         this.google.maps.event.addListener(this.map, 'click', (event) => {
           this.$emit('map-clicked', event);

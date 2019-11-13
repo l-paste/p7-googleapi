@@ -29,8 +29,8 @@ export default {
   },
   methods: {
     applyRange(numbers) {
-      this.$store.commit("setSortValue", numbers);
-      this.$store.commit("selectVisibleRestaurant");
+      this.$store.commit("setSliderRange", numbers);
+      this.$store.commit("placesSelection");
       this.$emit("input", numbers);
     }
   }

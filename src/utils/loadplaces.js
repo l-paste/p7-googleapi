@@ -1,11 +1,11 @@
 export default {
-  getRestaurantList
+  loadPlaces
 };
 
 const axios = require("axios");
 
-// Appel Axios à la liste restaurantList.json, et de GooglePlaces, réutilisée dans le Store.
-async function getRestaurantList(service, location) {
+// Appel Axios à la liste liste.json, et de GooglePlaces, réutilisée dans le Store.
+async function loadPlaces(service, location) {
   try {
     const jsonPromise = axios.get("liste.json"); // Restaurants en local
     const placesPromise = getPlacesPromise(service, location); // Restaurants via GooglePlaces
@@ -29,7 +29,7 @@ async function getRestaurantList(service, location) {
   }
 }
 
-/* Deux fonctions helpers de getRestaurantList utilisée dans le Store */
+/* Deux fonctions helpers de getSelectedPlacesList utilisée dans le Store */
 
 // Promesse pour récupérer les restaurants avec Google Places.
 async function getPlacesPromise(service, location) {

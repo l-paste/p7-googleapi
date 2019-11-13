@@ -10,7 +10,7 @@
       <div class="media-content">
         <p class="title is-3 is-size-4-mobile format-font beige">{{ getPlace.restaurantName}}</p>
         <p class="subtitle is-6 beige">{{ getPlace.address }}</p>
-        <p><stars :maxs="5" size="default" :rate="getPlace.avgRating" is-disabled></stars></p>
+        <p><stars :maxs="5" size="default" :rate="getPlace.avgRate" is-disabled></stars></p>
       </div>
     </div>
     <div class="content">
@@ -19,7 +19,7 @@
             <b-icon :icon="!props.open ? 'menu-down' : 'menu-up'"></b-icon>
             {{ !props.open ? 'Ajouter un commentaire' : 'Fermer' }}
           </a>
-          <add-rating-form :place-id="getPlace.ID"></add-rating-form>
+          <add-rating-form :place-id="getPlace.id"></add-rating-form>
         </b-collapse>
   <article class="media" v-for="(rating,index) of getPlace.ratings" :key="index">
   <div class="media-content">
@@ -51,8 +51,8 @@ export default {
   props: ["place-id"],
   computed: {
     getPlace() {
-      // Pour afficher les données du restaurant en fonction de l'ID de celui-ci
-      return this.$store.getters.getRestaurantById(this.placeId);
+      // Pour afficher les données du restaurant en fonction de l'id de celui-ci
+      return this.$store.getters.getPlaceById(this.placeId);
     }
   },
   beforeDestroy() {

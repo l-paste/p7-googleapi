@@ -6,169 +6,168 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    restaurantList: [],
-    visibleRestaurant: [],
-    sortValue: [],
-    boundsValue: {},
+    placesFullList: [],
+    selectedPlaces: [],
+    sliderRange: [],
+    currentBounds: {},
     isPlaceModalActive: false,
-    placeIdDetail: null
+    modalId: null,
+    loadingStatus: true
   },
   getters: {
-    // Obtenir l'ID des restaurants
-    getRestaurantById: state => {
+    // Obtenir l'id des restaurants
+    getPlaceById: state => {
       return id => {
-        const restaurantIndex = getRestaurantIndex(state.restaurantList, id);
-        return state.restaurantList[restaurantIndex];
+        const placeId = getplaceId(state.placesFullList, id);
+        return state.placesFullList[placeId];
       };
     },
 
-    // Obtenir la liste des restos
-    getRestaurantList: state => {
-      return state.visibleRestaurant;
+    // Obtenir la liste des restos sélectionnés
+    getSelectedPlacesList: state => {
+      return state.selectedPlaces;
     },
 
     getModalState: state => {
       return state.isPlaceModalActive;
     },
-    
-    getModalId: state => {
-      return state.placeIdDetail;
-    },
 
-    // Obtenir la valeur du tri (par note)
-    getSortValue: state => {
-      return state.sortValue;
+    getModalId: state => {
+      return state.modalId;
     },
 
     // Obtenir les limites actuelles de la carte
-    getBoundsValue: state => {
-      return state.boundsValue;
+    getCurrentBounds: state => {
+      return state.currentBounds;
+    },
+
+    getLoadingStatus: state => {
+      return state.loadingStatus;
     }
   },
 
   mutations: {
-    setRestaurantList: (state, { list }) => {
-      state.restaurantList = list;
-    },
+    // A supprimer ???
+    // setPlacesList: (state, { list }) => {
+    //   state.placesFullList = list;
+    // },
 
     // Définit les restaurants à afficher en fonction des limites de la carte et du tri par moyenne
-    selectVisibleRestaurant(state) {
-      const bounds = state.boundsValue;
-      const range = state.sortValue;
-      state.visibleRestaurant = state.restaurantList.filter(restaurant => {
-        let shouldBeVisible = true;
-        let isInMap = true;
-        let isInRange = true;
+    placesSelection(state) {
+      const bounds = state.currentBounds;
+      const range = state.sliderRange;
+      state.selectedPlaces = state.placesFullList.filter(place => {
+        let isSelected = true;
+        let isInBounds = true;
+        let isInSliderRange = true;
         // Limites cartes
         if (bounds) {
-          isInMap =
-            restaurant.long >= bounds.getSouthWest().lng() &&
-            restaurant.long <= bounds.getNorthEast().lng() &&
-            restaurant.lat >= bounds.getSouthWest().lat() &&
-            restaurant.lat <= bounds.getNorthEast().lat();
-          shouldBeVisible = shouldBeVisible && isInMap;
+          isInBounds =
+            place.long >= bounds.getSouthWest().lng() &&
+            place.long <= bounds.getNorthEast().lng() &&
+            place.lat >= bounds.getSouthWest().lat() &&
+            place.lat <= bounds.getNorthEast().lat();
+          isSelected = isSelected && isInBounds;
         }
         // Moyenne des notes
         if (range && range.length === 2) {
-          isInRange =
-            restaurant.avgRating >= range[0] &&
-            restaurant.avgRating <= range[1];
-          shouldBeVisible = shouldBeVisible && isInRange;
+          isInSliderRange =
+            place.avgRate >= range[0] && place.avgRate <= range[1];
+          isSelected = isSelected && isInSliderRange;
         }
-        return shouldBeVisible;
+        return isSelected;
       });
     },
 
-    setBoundsValue: (state, bounds) => {
-      state.boundsValue = bounds;
+    setCurrentBounds: (state, bounds) => {
+      state.currentBounds = bounds;
     },
 
-    setSortValue: (state, range) => {
-      state.sortValue = range;
+    setSliderRange: (state, range) => {
+      state.sliderRange = range;
     },
 
-    modalSetup: (state,modalId) => {
+    modalSetup: (state, modalId) => {
       state.isPlaceModalActive = true;
-      state.placeIdDetail = modalId;
+      state.modalId = modalId;
     },
 
-    resetModal: (state) => {
+    resetModal: state => {
       state.isPlaceModalActive = false;
-      state.placeIdDetail = null;
+      state.modalId = null;
     },
 
-    // Ajoute un restaurant en ajoutant automatiquement un champ avgRating et un ID (le dernier +1)
-    addRestaurant: (state, { newRestaurant }) => {
-      const ratings = newRestaurant.ratings || [];
+    endLoading: state => {
+      state.loadingStatus = false;
+    },
 
-      const restaurantToAdd = {
-        ...newRestaurant,
+    // Ajoute un restaurant en ajoutant automatiquement un champ avgRate et un id (le dernier +1)
+    addPlace: (state, { newPlace }) => {
+      const ratings = newPlace.ratings || [];
+
+      const placeToAdd = {
+        ...newPlace,
         ratings,
-        avgRating: computeAvgRatings(ratings),
-        ID: getLastId()
+        avgRate: getAvgRate(ratings),
+        id: getLastId()
       };
 
-      state.restaurantList.push(restaurantToAdd);
-      state.visibleRestaurant.push(restaurantToAdd);
+      state.placesFullList.push(placeToAdd);
+      state.selectedPlaces.push(placeToAdd);
 
+      // Utilisation de reduce pour obtenir le dernier ID et lui ajouter +1
       function getLastId() {
-        const lastId = state.restaurantList.reduce((acc, restaurant) => {
-          if (acc < restaurant.ID) {
-            return restaurant.ID;
+        const lastId = state.placesFullList.reduce((acc, { id }) => {
+          if (acc < id) {
+            return id;
           }
           return acc;
         }, 0);
-
         return lastId + 1;
       }
     },
 
-    // Ajoute un commentaire
-    addComment: (state, { restaurantId, comment }) => {
-      const restaurantIndex = getRestaurantIndex(
-        state.restaurantList,
-        restaurantId
-      );
+    // Ajout d'une évaluation (rating)
+    addRating: (state, { placeIdToAdd, rating }) => {
+      const placeId = getplaceId(state.placesFullList, placeIdToAdd);
 
-      state.restaurantList[restaurantIndex].ratings.push({
-        ...comment
+      state.placesFullList[placeId].ratings.push({
+        ...rating
       });
 
-      const restaurantRating = computeAvgRatings(
-        state.restaurantList[restaurantIndex].ratings
-      );
-      state.restaurantList[restaurantIndex].avgRating = restaurantRating;
+      const placeAvgRate = getAvgRate(state.placesFullList[placeId].ratings);
+      state.placesFullList[placeId].avgRate = placeAvgRate;
     }
   },
 
   actions: {
     getData: async function(context, { service, location }) {
-      this.state.visibleRestaurant = [];
-      this.state.restaurantList = [];
-      const restaurantList = await loadplaces.getRestaurantList(
+
+      const loadedPlaces = await loadplaces.loadPlaces(
         service,
         location
       );
-      // console.log(restaurantList);
-      restaurantList.forEach(newRestaurant =>
-        context.commit("addRestaurant", { newRestaurant })
+      loadedPlaces.forEach(newPlace =>
+        context.commit("addPlace", { newPlace })
       );
-      
-    },
+      context.commit("placesSelection");
+      context.commit("endLoading"); // On met fin au chargement de la page.
+    }
     // updateData: async function(context, { service, location, bounds }) {
 
     // }
   }
 });
 
-// Fonction helper pour getRestaurantById
-function getRestaurantIndex(restaurantList, id) {
-  return restaurantList.findIndex(restaurant => restaurant.ID === parseInt(id));
+// Fonction helper pour getPlaceById
+function getplaceId(placesFullList, id) {
+  return placesFullList.findIndex(restaurant => restaurant.id === parseInt(id));
 }
-// Fonction helper pour getRestaurantAvgRating
-function computeAvgRatings(ratings) {
-  const avgRating = ratings.reduce((acc, rating) => {
-    return acc + rating.stars / ratings.length;
-  }, 0);
-  return Math.round(avgRating);
+// Fonction helper pour getRestaurantavgRate
+function getAvgRate(ratings) {
+  const avgRate = ratings.reduce(
+    (acc, { stars }) => acc + stars / ratings.length,
+    0
+  );
+  return Math.round(avgRate);
 }

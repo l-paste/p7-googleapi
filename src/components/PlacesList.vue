@@ -1,5 +1,5 @@
 <template>
-<article class="media" @click="openModal(restaurant.ID)">
+<article class="media" @click="openModal(restaurant.id)">
   <div class="media-content">
     <div class="content">
       <p>
@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="media-right">
-    <stars :maxs="5" size="default" :rate="restaurant.avgRating" is-disabled></stars>
+    <stars :maxs="5" size="default" :rate="restaurant.avgRate" is-disabled></stars>
   </div>
 </article>
 </template>
@@ -24,8 +24,8 @@ export default {
   },
   props: ["restaurant"],
   methods: {
-      openModal(ID) {
-       this.$store.commit("modalSetup", ID);
+      openModal(id) {
+       this.$store.commit("modalSetup", id);
       }
   }
 };

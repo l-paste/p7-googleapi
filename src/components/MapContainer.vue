@@ -8,7 +8,7 @@
       @map-initialized="initialize"
       @map-bounds-changed="selectVisibleMarker"
       @drag-ended="updateLocationsList"
-      @map-clicked="openAddRestaurant"
+      @map-clicked="openaddPlace"
     >
       <template v-slot:default="{ google, map }">
         <markers
@@ -23,7 +23,7 @@
     </places-map>
 
     <!-- Loader -->
-    <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="true"></b-loading>
+    <b-loading :is-full-page="isFullPage" :active.sync="loadingStatus" :can-cancel="true"></b-loading>
 
     <!-- Modal pour ajouter des restaurants -->
     <b-modal
@@ -74,7 +74,6 @@ export default {
         lat: null,
         lng: null
       },
-      isLoading: true,
       isFullPage: true,
       isAddPlaceModalActive: false,
       addPlaceLat: null,
@@ -108,30 +107,30 @@ export default {
             };
             this.map.setCenter(this.customCenter);
             this.setPlaces(pos);
-            this.selectVisibleMarker();
+            this.$store.commit("setCurrentBounds", this.map.getBounds());
           },
           () => {
             this.handleLocationError(true, this.defaultCenter);
             this.setPlaces(this.defaultCenter);
-            this.selectVisibleMarker();
+            this.$store.commit("setCurrentBounds", this.map.getBounds());
           }
         );
       } else {
         this.handleLocationError(false, this.defaultCenter);
         this.setPlaces(this.defaultCenter);
-        this.selectVisibleMarker();
+        this.$store.commit("setCurrentBounds", this.map.getBounds());
       }
     },
 
     handleLocationError(browserHasGeolocation, pos) {
       this.map.setCenter(pos);
-      this.selectVisibleMarker();
+      this.$store.commit("setCurrentBounds", this.map.getBounds());
     },
 
-    // selectVisibleRestaurant dépend du tri et de la zone d'affichage de la carte, et est utilisé par Map et List
+    // placesSelection dépend du tri et de la zone d'affichage de la carte, et est utilisé par Map et List
     selectVisibleMarker() {
-      this.$store.commit("setBoundsValue", this.map.getBounds());
-      this.$store.commit("selectVisibleRestaurant");
+      this.$store.commit("setCurrentBounds", this.map.getBounds());
+      this.$store.commit("placesSelection");
     },
 
     updateLocationsList() {
@@ -143,7 +142,7 @@ export default {
       // });
     },
 
-    openAddRestaurant(event) {
+    openaddPlace(event) {
       this.addPlaceLat = event.latLng.lat();
       this.addPlaceLng = event.latLng.lng();
       this.isAddPlaceModalActive = true;
@@ -156,7 +155,7 @@ export default {
         service,
         location
       });
-      this.isLoading = false;
+      // this.isLoading = false;
     }
   },
 
@@ -164,9 +163,9 @@ export default {
     // Génère les markers
     markers() {
       const markersArray = [
-        ...this.$store.getters.getRestaurantList.map(restaurant => {
+        ...this.$store.getters.getSelectedPlacesList.map(restaurant => {
           return {
-            id: restaurant.ID,
+            id: restaurant.id,
             position: {
               lat: parseFloat(restaurant.lat),
               lng: parseFloat(restaurant.long)
@@ -179,6 +178,10 @@ export default {
         markersArray.push(this.userMarker);
       }
       return markersArray;
+    },
+    
+    loadingStatus() {
+        return this.$store.getters.getLoadingStatus;
     }
   }
 };

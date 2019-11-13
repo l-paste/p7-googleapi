@@ -2,7 +2,7 @@
   <div class="column is-marginless places-list">
     <rating-slider></rating-slider>
     <div
-      v-for="(restaurant, index) in getRestaurantList"
+      v-for="(restaurant, index) in getSelectedPlacesList"
       :key="`place-${index}`"
       :class="{even: index % 2, odd: !(index % 2)}"
     >
@@ -13,7 +13,7 @@
       :active.sync="isPlaceModalActive"
       :width="640" scroll="keep"
     >
-      <place-modal :place-id="placeIdDetail"></place-modal>
+      <place-modal :place-id="modalId"></place-modal>
     </b-modal>
   </div>
 </template>
@@ -33,16 +33,16 @@ export default {
   data: function() {
       return {
         isPlaceModalActive: false,
-        placeIdDetail: null
+        modalId: null
       }
     },
   computed: {
-    // Getters du Store qui retourne visibleRestaurant.
-    getRestaurantList() {
+    // Getters du Store qui retourne selectedPlaces.
+    getSelectedPlacesList() {
       // eslint-disable-next-line
       return _.orderBy(
-        this.$store.getters.getRestaurantList,
-        "avgRating",
+        this.$store.getters.getSelectedPlacesList,
+        "avgRate",
         "desc"
       );
     },
@@ -52,7 +52,7 @@ export default {
   },
   watch: {
     getModalId() {
-      this.placeIdDetail = this.$store.getters.getModalId;
+      this.modalId = this.$store.getters.getModalId;
       this.isPlaceModalActive = this.$store.getters.getModalState;
     }
   }

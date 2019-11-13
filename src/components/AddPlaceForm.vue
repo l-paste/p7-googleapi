@@ -7,16 +7,16 @@
 
       <section class="modal-card-body">
         <b-field label="Nom">
-          <b-input v-model="newRestaurant.restaurantName" placeholder="Nom du restaurant" required></b-input>
+          <b-input v-model="newPlace.restaurantName" placeholder="Nom du restaurant" required></b-input>
         </b-field>
 
         <b-field label="Adresse">
-          <b-input v-model="newRestaurant.address" placeholder="Adresse du restaurant" required></b-input>
+          <b-input v-model="newPlace.address" placeholder="Adresse du restaurant" required></b-input>
         </b-field>
       </section>
       <footer class="modal-card-foot">
         <button class="button" type="button" @click="$parent.close()">Fermer</button>
-        <button class="button is-primary" @click="sendNewRestaurant" :disabled="isDisabled">Confirmer</button>
+        <button class="button is-primary" @click="sendnewPlace" :disabled="isDisabled">Confirmer</button>
       </footer>
     </div>
   </form>
@@ -27,7 +27,7 @@ export default {
     props: ['place-lat', 'place-lng'],
     data: function() {
       return {
-        newRestaurant: {
+        newPlace: {
           restaurantName: '',
           address: '',
           lat: this.placeLat,
@@ -36,20 +36,20 @@ export default {
       }
     },
     methods: {
-      sendNewRestaurant(e) {
+      sendnewPlace(e) {
         e.preventDefault();
         // Ajout du nouveau restaurant au Store
-        this.$store.commit('addRestaurant', {
-          newRestaurant: this.newRestaurant
+        this.$store.commit('addPlace', {
+          newPlace: this.newPlace
         });
-        // Ferme le composant AddRestaurant, évite de pouvoir envoyer plusieurs fois les mêmes données
+        // Ferme le composant addPlace, évite de pouvoir envoyer plusieurs fois les mêmes données
         this.$parent.close()
         
       }
     },
     computed: {
     isDisabled() {
-      return !this.newRestaurant.restaurantName || !this.newRestaurant.address;
+      return !this.newPlace.restaurantName || !this.newPlace.address;
     }
   } 
 };
