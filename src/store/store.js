@@ -12,7 +12,8 @@ export const store = new Vuex.Store({
     currentBounds: {},
     isPlaceModalActive: false,
     modalId: null,
-    loadingStatus: true
+    loadingStatus: true,
+    addPlaceMode: false
   },
   getters: {
     // Obtenir l'id des restaurants
@@ -43,7 +44,12 @@ export const store = new Vuex.Store({
 
     getLoadingStatus: state => {
       return state.loadingStatus;
+    },
+
+    getAddPlaceMode: state => {
+      return state.addPlaceMode;
     }
+
   },
 
   mutations: {
@@ -99,6 +105,10 @@ export const store = new Vuex.Store({
 
     endLoading: state => {
       state.loadingStatus = false;
+    },
+
+    setAddPlaceMode: (state, mode) => {
+      state.addPlaceMode = mode;
     },
 
     // Ajoute un restaurant en ajoutant automatiquement un champ avgRate et un id (le dernier +1)

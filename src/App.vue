@@ -36,7 +36,6 @@ export default {
 .format-font {
   font-family: "Format 1452";
   text-transform: uppercase;
-
 }
 
 #app {
@@ -49,4 +48,8 @@ export default {
 .columns {
   background-color: #FFECE2;
 } 
+
+.ketchup {
+  color: #F46363;
+}
 </style>

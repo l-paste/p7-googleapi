@@ -8,8 +8,8 @@
         </figure>
       </div>
       <div class="media-content">
-        <p class="title is-3 is-size-4-mobile format-font beige">{{ getPlace.restaurantName}}</p>
-        <p class="subtitle is-6 beige">{{ getPlace.address }}</p>
+        <p class="title is-3 is-size-4-mobile format-font ketchup">{{ getPlace.restaurantName}}</p>
+        <p class="subtitle is-6">{{ getPlace.address }}</p>
         <p><stars :maxs="5" size="default" :rate="getPlace.avgRate" is-disabled></stars></p>
       </div>
     </div>
@@ -25,12 +25,17 @@
   <div class="media-content">
     <div class="content">
 
-        <p><strong>{{ rating.author }}</strong><br>
+        <p>
+        <span class="is-hidden-tablet"><strong>{{ rating.author }}</strong> <stars class="is-hidden-tablet is-inline" :maxs="5" size="default" :rate="rating.stars" is-disabled></stars></span>
+        <span class="is-hidden-mobile"><strong>{{ rating.author }}</strong><br> </span>
+
+        
+          {{ rating.comment }}
           
-          {{ rating.comment }}</p>
+        </p>
     </div>
   </div>
-  <div class="media-right">
+  <div class="media-right is-hidden-mobile">
     <stars :maxs="5" size="default" :rate="rating.stars" is-disabled></stars>
   </div>
 </article>
@@ -62,19 +67,5 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  background-color: #eef7d4;
-}
-/* 
 
-.media {
-  background: #d61415;
-} 
-.media-content {
-  padding: 5px;
-}
-
-.beige {
-  color:#ecfac4;
-} */
 </style>

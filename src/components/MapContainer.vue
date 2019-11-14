@@ -143,9 +143,11 @@ export default {
     },
 
     openaddPlace(event) {
+      if (this.addPlaceMode) {
       this.addPlaceLat = event.latLng.lat();
       this.addPlaceLng = event.latLng.lng();
       this.isAddPlaceModalActive = true;
+      }
     },
 
     setPlaces(location) {
@@ -182,6 +184,10 @@ export default {
     
     loadingStatus() {
         return this.$store.getters.getLoadingStatus;
+    },
+
+    addPlaceMode() {
+      return this.$store.getters.getAddPlaceMode;
     }
   }
 };

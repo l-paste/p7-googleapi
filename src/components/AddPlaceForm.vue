@@ -2,7 +2,7 @@
   <form action>
     <div class="modal-card" style="width: auto; margin-left: 10px; margin-right: 10px;">
       <header class="modal-card-head">
-        <p class="modal-card-title">Ajouter un restaurant</p>
+        <p class="modal-card-title format-font">Ajouter un restaurant</p>
       </header>
 
       <section class="modal-card-body">

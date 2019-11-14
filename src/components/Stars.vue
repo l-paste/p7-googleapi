@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-/* .stars-rating {
-  
-} */
+.stars-rating {
+  text-shadow: 1px 0px 5px black;
+}
 </style>
