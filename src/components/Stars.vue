@@ -17,6 +17,6 @@ export default {
 
 <style>
 .stars-rating {
-  text-shadow: 1px 0px 5px black;
+  text-shadow: 0px 0px 5px black;
 }
 </style>

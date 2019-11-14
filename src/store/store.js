@@ -54,10 +54,6 @@ export const store = new Vuex.Store({
   },
 
   mutations: {
-    // A supprimer ???
-    // setPlacesList: (state, { list }) => {
-    //   state.placesFullList = list;
-    // },
 
     // Définit les restaurants à afficher en fonction des limites de la carte et du tri par moyenne
     placesSelection(state) {
@@ -114,6 +110,7 @@ export const store = new Vuex.Store({
 
     // Ajoute un restaurant en ajoutant automatiquement un champ avgRate et un id (le dernier +1)
     addPlace: (state, { newPlace }) => {
+
       const ratings = newPlace.ratings || [];
 
       const placeToAdd = {
@@ -150,7 +147,9 @@ export const store = new Vuex.Store({
 
   actions: {
     getData: async function(context, { service, location }) {
-
+      this.state.selectedPlaces = [];
+      this.state.placesFullList = [];
+      
       const loadedPlaces = await loadplaces.loadPlaces(service, location);
       
       loadedPlaces.forEach(newPlace =>

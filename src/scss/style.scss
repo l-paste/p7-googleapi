@@ -6,18 +6,28 @@ $primary: #D63B39;
 $primary-invert: findColorInvert($primary);
 $ketchup: #F46363;
 $ketchup-invert: findColorInvert($ketchup);
-$moutarde: #DFA47C;
+$moutarde: #DFA47C; 
 $moutarde-invert: findColorInvert($moutarde);
+$tartare: #FFECE2;
+$tartare-invert: findColorInvert($tartare);
 
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
     "danger": ($ketchup, $ketchup-invert),
     "warning": ($moutarde, $moutarde-invert),
-    "primary": ($primary, $primary-invert)
+    "primary": ($primary, $primary-invert),
+    "light": ($tartare, $tartare-invert)
 );
 
-$slider-tick-background:black;
+$slider-tick-background: black;
+
+$navbar-dropdown-background-color: red;
+
+$modal-card-head-background-color: $tartare;
+$modal-card-body-background-color: #f7f0ec;
+
+$tag-background-color: #DFA47C;
 
 // Links
 $link: $primary;

@@ -19,6 +19,12 @@ import AddPlaceSwitch from "./AddPlaceSwitch";
 export default {
     components: {
     AddPlaceSwitch
+  },
+  methods: {
+    updatePlaces() {
+      this.$store.commit("launchUpdate");
+     
+    }
   }
 };
 </script>
