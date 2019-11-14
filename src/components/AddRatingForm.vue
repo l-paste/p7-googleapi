@@ -30,13 +30,6 @@ export default {
     };
   },
   methods: {
-    // reset des valeurs des input
-    restore() {
-      this.rating.author = "";
-      this.rating.comment = "";
-      this.rating.stars = 0;
-      // https://michaelnthiessen.com/force-re-render, permet de reloader le composant si une valeur du key change, donc reset du score (stars)
-    },
     // Envoie le nouveau commentaire au store
     sendNewRating(e) {
       e.preventDefault();
@@ -44,6 +37,10 @@ export default {
         placeIdToAdd: this.placeId,
         rating: this.rating
       });
+      this.$emit('close-collapse')
+      this.rating.author = "";
+      this.rating.comment = "";
+      this.rating.stars = 0
     }
   },
   computed: {

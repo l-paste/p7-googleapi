@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import loadplaces from "../utils/loadplaces";
 
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -10,6 +11,8 @@ export const store = new Vuex.Store({
     selectedPlaces: [],
     sliderRange: [],
     currentBounds: {},
+    currentCenter: {},
+    isUpdateNeeded: false,
     isPlaceModalActive: false,
     modalId: null,
     loadingStatus: true,
@@ -48,6 +51,14 @@ export const store = new Vuex.Store({
 
     getAddPlaceMode: state => {
       return state.addPlaceMode;
+    },
+
+    getCurrentCenter: state => {
+      return state.currentCenter;
+    },
+
+    isUpdateNeeded: state => {
+      return state.isUpdateNeeded;
     }
 
   },
@@ -85,6 +96,10 @@ export const store = new Vuex.Store({
       });
     },
 
+    updateCurrentCenter: (state, currentCenter) => {
+      state.currentCenter = currentCenter;
+    },
+
     setCurrentBounds: (state, bounds) => {
       state.currentBounds = bounds;
     },
@@ -111,8 +126,14 @@ export const store = new Vuex.Store({
       state.addPlaceMode = mode;
     },
 
+    launchUpdate: state => {
+      state.isUpdateNeeded = !state.isUpdateNeeded;
+    },
+
+
     // Ajoute un restaurant en ajoutant automatiquement un champ avgRate et un id (le dernier +1)
     addPlace: (state, { newPlace }) => {
+
       const ratings = newPlace.ratings || [];
 
       const placeToAdd = {
@@ -149,7 +170,9 @@ export const store = new Vuex.Store({
 
   actions: {
     getData: async function(context, { service, location }) {
-
+      this.state.placesFullList = [];
+      this.state.selectedPlaces = [];
+      
       const loadedPlaces = await loadplaces.loadPlaces(service, location);
       
       loadedPlaces.forEach(newPlace =>
@@ -165,14 +188,16 @@ export const store = new Vuex.Store({
 });
 
 // Fonction helper pour getPlaceById
-function getplaceId(placesFullList, id) {
+const  getplaceId = (placesFullList, id) => {
   return placesFullList.findIndex(restaurant => restaurant.id === parseInt(id));
 }
+
 // Fonction helper pour getRestaurantavgRate
-function getAvgRate(ratings) {
+const getAvgRate = (ratings) => {
   const avgRate = ratings.reduce(
     (acc, { stars }) => acc + stars / ratings.length,
     0
   );
   return Math.round(avgRate);
-}
+} 
+

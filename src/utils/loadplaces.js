@@ -34,6 +34,7 @@ async function loadPlaces(service, location) {
 // Promesse pour récupérer les restaurants avec Google Places.
 
 async function getGooglePlaces(service, location) {
+  try {
   return new Promise(resolve => service.nearbySearch(
     {
       location,
@@ -55,6 +56,10 @@ async function getGooglePlaces(service, location) {
       return resolve({ result: restaurantArray, status });
     }
   ));
+} catch(err) {
+  // eslint-disable-next-line no-console
+  console.log(err);
+}
 }
 
 async function getPlaceDetails(service, placeId) {

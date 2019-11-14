@@ -1,9 +1,7 @@
 <template>
   <b-field>
-    <b-switch size="is-medium" type="is-danger" v-model="isSwitched">
-      <span class="icon">
-        <i class="mdi mdi-silverware"></i>
-      </span>
+    <b-switch class="tag is-large" size="is-medium" type="is-danger" v-model="isSwitched">
+      <b-icon icon="silverware"></b-icon>
 
       <span>Ajouter un restaurant</span>
     </b-switch>

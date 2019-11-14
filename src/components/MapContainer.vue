@@ -7,7 +7,7 @@
       :defaultCenter="defaultCenter"
       @map-initialized="initialize"
       @map-bounds-changed="selectVisibleMarker"
-      @drag-ended="updateLocationsList"
+      @drag-ended="updateCurrentCenter"
       @map-clicked="openaddPlace"
     >
       <template v-slot:default="{ google, map }">
@@ -28,7 +28,6 @@
     <!-- Modal pour ajouter des restaurants -->
     <b-modal
       :active.sync="isAddPlaceModalActive"
-      has-modal-card
       trap-focus
       aria-role="dialog"
       aria-modal
@@ -40,7 +39,6 @@
 </template>
 
 <script>
-// import MarkerClusterer from "@google/markerclusterer";
 import PlacesMap from "./PlacesMap";
 import Markers from "./Markers";
 import AddPlace from "./AddPlaceForm";
@@ -62,10 +60,6 @@ export default {
       marker: null,
       map: null,
       bounds: null,
-      position: {
-        lat: null,
-        lng: null
-      },
       defaultCenter: {
         lat: 48.842702,
         lng: 2.328434
@@ -133,15 +127,6 @@ export default {
       this.$store.commit("placesSelection");
     },
 
-    updateLocationsList() {
-      // console.log("fonction dragend");
-      // const location = this.map.getCenter();
-      // const service = new this.google.maps.places.PlacesService(this.map);
-      //   service,
-      //   location
-      // });
-    },
-
     openaddPlace(event) {
       if (this.addPlaceMode) {
       this.addPlaceLat = event.latLng.lat();
@@ -157,20 +142,25 @@ export default {
         service,
         location
       });
-      // this.isLoading = false;
-    }
+    },
+
+      updateCurrentCenter() {
+        this.$store.commit("updateCurrentCenter", this.map.getCenter(), this.map);
+      }
+
+
   },
 
   computed: {
     // Génère les markers
     markers() {
       const markersArray = [
-        ...this.$store.getters.getSelectedPlacesList.map(restaurant => {
+        ...this.$store.getters.getSelectedPlacesList.map(place => {
           return {
-            id: restaurant.id,
+            id: place.id,
             position: {
-              lat: parseFloat(restaurant.lat),
-              lng: parseFloat(restaurant.long)
+              lat: parseFloat(place.lat),
+              lng: parseFloat(place.long)
             },
             type: "restaurant"
           };
@@ -188,6 +178,16 @@ export default {
 
     addPlaceMode() {
       return this.$store.getters.getAddPlaceMode;
+    },
+
+    updateWatcher() {
+      return this.$store.getters.isUpdateNeeded;
+    }
+  },
+  watch: {
+    updateWatcher() {
+      this.setPlaces(this.map.getCenter());
+      console.log("clicked!!!");
     }
   }
 };
