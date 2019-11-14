@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import loadplaces from "../utils/loadplaces";
 
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -165,14 +166,16 @@ export const store = new Vuex.Store({
 });
 
 // Fonction helper pour getPlaceById
-function getplaceId(placesFullList, id) {
+const getplaceId = (placesFullList, id) => {
   return placesFullList.findIndex(restaurant => restaurant.id === parseInt(id));
 }
+
 // Fonction helper pour getRestaurantavgRate
-function getAvgRate(ratings) {
+const getAvgRate = (ratings) => {
   const avgRate = ratings.reduce(
     (acc, { stars }) => acc + stars / ratings.length,
     0
   );
   return Math.round(avgRate);
-}
+} 
+
