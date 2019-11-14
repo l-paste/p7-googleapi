@@ -7,21 +7,18 @@
     </template>
     <template slot="end">
       <b-navbar-item tag="div">
-          <b-tooltip label="Une fois cette option activée, cliquez sur la carte pour ajouter un restaurant à cet emplacement."
-            position="is-bottom">
-          <checkbox></checkbox>
-          </b-tooltip>
+          <add-place-switch></add-place-switch>
       </b-navbar-item>
     </template>
   </b-navbar>
 </template>
 
 <script>
-import Checkbox from "./Checkbox";
+import AddPlaceSwitch from "./AddPlaceSwitch";
 
 export default {
     components: {
-    Checkbox
+    AddPlaceSwitch
   }
 };
 </script>

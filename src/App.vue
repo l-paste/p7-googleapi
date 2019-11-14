@@ -12,6 +12,7 @@
 import Navbar from "./components/Navbar.vue";
 import MapContainer from "./components/MapContainer.vue";
 import PlacesContainer from "./components/PlacesContainer.vue";
+// import Buefy from "./style.scss";
 
 export default {
   name: "app",
@@ -52,4 +53,8 @@ export default {
 .ketchup {
   color: #F46363;
 }
+</style>
+
+<style lang="scss">
+@import "@/scss/style.scss";
 </style>
