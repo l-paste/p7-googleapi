@@ -52,8 +52,8 @@ export default {
       },
       map: null,
       defaultCenter: {
-        lat: 48.842702,
-        lng: 2.328434
+        lat: 48.704439,
+        lng: 2.460114
       },
       isFullPage: true,
       isAddPlaceModalActive: false,

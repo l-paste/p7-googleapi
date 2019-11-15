@@ -1,7 +1,6 @@
 <template>
   <b-field>
     <b-switch class="switch-tag tag is-light" size="is-medium" type="is-danger" v-model="isSwitched">
-
       <span>Ajouter un restaurant</span>
     </b-switch>
   </b-field>
