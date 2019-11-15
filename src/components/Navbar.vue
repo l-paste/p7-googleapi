@@ -6,9 +6,9 @@
         <img src="../assets/logo.png" alt="Trouvez rapidement où casser la croûte avec Casse-croûte !" />
       </b-navbar-item>
     </template>
-    <template slot="end">
+    <template slot="start">
       <!-- Intégration du composant switch -->
-      <b-navbar-item tag="div">
+      <b-navbar-item tag="div" class="switch-margin">
           <add-place-switch></add-place-switch>
       </b-navbar-item>
     </template>
@@ -28,5 +28,8 @@ export default {
 <style scoped>
 .navbar-background {
   background-color: #ffece2;
+}
+.switch-margin {
+  margin-top: 5px;
 }
 </style>

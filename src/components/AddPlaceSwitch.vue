@@ -1,7 +1,7 @@
 <template>
   <b-field>
-    <b-switch class="switch-tag tag is-large" size="is-medium" type="is-danger" v-model="isSwitched">
-      <b-icon icon="silverware"></b-icon>
+    <b-switch class="switch-tag tag is-light" size="is-medium" type="is-danger" v-model="isSwitched">
+
       <span>Ajouter un restaurant</span>
     </b-switch>
   </b-field>
@@ -36,6 +36,6 @@ export default {
 
 <style scoped>
 .switch-tag:hover {
-  background-color: #ddb499;
+  background-color: #f5c8ab;
 }
 </style>
