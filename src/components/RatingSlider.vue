@@ -1,7 +1,8 @@
 <template>
+  <!-- Slider Buefy permettant le tri par note des restaurants -->
   <section class="rate-slider">
     <b-field>
-      <b-slider 
+      <b-slider
         v-model="numbers"
         :min="1"
         :max="5"
@@ -13,7 +14,9 @@
         rounded
       >
         <template v-for="val of [1, 2, 3, 4, 5]">
-          <b-slider-tick :value="val" :key="`tick-${val}`"><small>{{ val }}</small></b-slider-tick>
+          <b-slider-tick :value="val" :key="`tick-${val}`">
+            <small>{{ val }}</small>
+          </b-slider-tick>
         </template>
       </b-slider>
     </b-field>
@@ -28,6 +31,7 @@ export default {
     };
   },
   methods: {
+    // Mise en place du filtre via le store.
     applyRange(numbers) {
       this.$store.commit("setSliderRange", numbers);
       this.$store.commit("placesSelection");

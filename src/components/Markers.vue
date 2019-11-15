@@ -1,6 +1,6 @@
 <template>
   <div class="google-markers">
-
+    <!-- Seulement besoin de la partie script. -->
   </div>
 </template>
 
@@ -8,6 +8,7 @@
 <script>
   export default {
     name: 'google-markers',
+    // Récupération des infos du marker à créer.
     props: {
       google: {
         type: Object,
@@ -29,7 +30,7 @@
       }
     },
     mounted() {
-      // Création des markers
+      // Création du marker
       this.mapMarker = new this.google.maps.Marker({
         position: this.marker.position,
         map: this.map,
@@ -37,7 +38,7 @@
         icon: this.getIconUrl(this.marker.type)
       })
       
-      // Ajout du listener click sur icon ouvre composant ReadComments
+      // addListener pour ouvrir la modale avec les infos du restaurant.
       this.mapMarker.addListener('click', () => {
           if (this.marker.type !== 'user') {
             this.modalId = this.marker.id;
@@ -47,12 +48,13 @@
       
         
     },
-    // Pour supprimer les markers avant de les redessiner
+    // Nettoyage des markers pour éviter les doublons.
     beforeDestroy() {
       this.mapMarker.setMap(null)
     },
+
     methods: {
-      // Dessiner les markers
+      // Les différents types d'icones en fonction du type du marker.
       getIconUrl() {
         let icon
         switch (this.marker.type) {
@@ -71,8 +73,3 @@
     },
   }
 </script>
-
-
-<style scoped>
-
-</style>

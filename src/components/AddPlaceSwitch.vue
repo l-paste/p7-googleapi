@@ -36,6 +36,6 @@ export default {
 
 <style scoped>
 .switch-tag:hover {
-  background-color: rgb(167, 118, 80);
+  background-color: #ddb499;
 }
 </style>

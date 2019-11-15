@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div class="google-map" v-bind:id="mapName" ref="mainMap"></div>
+    <div class="google-map" ref="appMap"></div>
     <template v-if="Boolean(this.google) && Boolean(this.map)">
+      <!-- Si l'API est chargée, envoi au composant parent -->
       <slot :google="google" :map="map"></slot>
     </template>
   </div>
 </template>
 
 <script>
-// Utilisation du plugin pour charger de manière asynchrone l'API
-const apiLoad = require("google-maps-api-loader");
+// On charge l'intégration de l'API Google
 import gmapsInit from "../utils/loadapi";
 
 export default {
@@ -17,35 +17,33 @@ export default {
   data: function() {
     return {
       google: null,
-      mapName: this.name + "-map",
-      userCoord: {},
-      markers: [],
-      map: null,
-      bounds: null
+      map: null
     };
   },
   // Petit plugin pour loader de manière asynchrone l'API Google et éviter des erreurs
   async mounted() {
-    const google = await gmapsInit();
+    const google = await gmapsInit(); // On attend l'intégration de l'API.
     this.google = google;
-    // Appel de InitMap, et des listeners
+    // Une fois terminé on lance ces fonctions :
     this.initMap();
     this.boundsListener();
     this.openAddPlace();
   },
   methods: {
-    // Initialise la carte
+    // Initialisation de la carte
     initMap() {
       // Pour y faire référence plus facilement
-      const element = this.$refs.mainMap;
+      const element = this.$refs.appMap; // Emplacement de la carte dans le DOM
       const options = {
-        center: this.defaultCenter,
-        zoom: 17,
-        minZoom: 17,
-        maxZoom: 19,
-        fullscreenControl: false,
+        // Options de la création de carte
+        center: this.defaultCenter, // Centre par défaut (avant géolocalisation ou si désactivée)
+        zoom: 17, // Zoom par défaut
+        minZoom: 17, // Zoom minimum
+        maxZoom: 19, // Zoom maximum
+        fullscreenControl: false, // Masquage d'options pour simplifier
         mapTypeControl: false,
         styles: [
+          // Personnalisation de la carte
           {
             elementType: "geometry",
             stylers: [
@@ -168,14 +166,16 @@ export default {
         ]
       };
 
+      // Création de la carte avec les options précédemment établies
       this.map = new this.google.maps.Map(element, options);
-      // Emet google et map à MainMap
+      // Envoi de google et map au composant parent (MapContainer)
       this.$emit("map-initialized", {
         google: this.google,
         map: this.map
       });
     },
-    
+
+    // Détection des déplacements sur la carte pour récupérer les limites et les envoyer au store.
     boundsListener() {
       // Pour utiliser les bounds pour l'affichage des restaurants dans la liste
       this.google.maps.event.addListener(this.map, "bounds_changed", () => {
@@ -183,6 +183,7 @@ export default {
       });
     },
 
+    // Gestion du clic sur la carte pour ajouter un restaurant.
     openAddPlace() {
       // Emet l'event pour ajouter un restaurant au click sur la carte
       this.google.maps.event.addListener(this.map, "click", event => {
@@ -194,7 +195,8 @@ export default {
 </script>
 
 <style>
+/* Map full height moins la navbar */
 .google-map {
-  min-height: calc(100vh - 3.25rem);
+  min-height: calc(100vh - 3.25rem); 
 }
 </style>

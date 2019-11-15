@@ -4,7 +4,7 @@ export default {
 
 const axios = require("axios");
 
-// Appel Axios à la liste liste.json, et de GooglePlaces, réutilisée dans le Store.
+// Chargement global des restaurants depuis le jSon + depuis Places.
 async function loadPlaces(service, location) {
   try {
     const jsonPromise = axios.get("liste.json"); // Restaurants en local
@@ -29,10 +29,7 @@ async function loadPlaces(service, location) {
   }
 }
 
-/* Deux fonctions helpers de getSelectedPlacesList utilisée dans le Store */
-
-// Promesse pour récupérer les restaurants avec Google Places.
-
+// Lancement du nearbySearch pour récupérer les restaurants dans un périmètre de 500 mètres.
 async function getGooglePlaces(service, location) {
   try {
   return new Promise(resolve => service.nearbySearch(
@@ -45,10 +42,9 @@ async function getGooglePlaces(service, location) {
       const restaurantArray = [];
       for (let apiPlace of result) {
         let currentRestaurant = { ...apiPlace };
+        // Récupération des détails du restaurant (avis)
         const detail = await getPlaceDetails(service, apiPlace.place_id);
-        // console.log(detail);
         currentRestaurant = { ...currentRestaurant, ...detail };
-
         restaurantArray.push(currentRestaurant);
       }
 
@@ -62,6 +58,7 @@ async function getGooglePlaces(service, location) {
 }
 }
 
+// Fonction pour récupérer les avis du restaurant
 async function getPlaceDetails(service, placeId) {
   return new Promise(resolve => {
     const request = {
@@ -86,6 +83,7 @@ function formatGoogleList(place) {
   };
 }
 
+// Idem pour les détails
 function formatGoogleDetails(place) {
   if (place.details === null) return [];
   return place.details.reviews.map(function(review) {

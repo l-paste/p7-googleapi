@@ -59,12 +59,12 @@ export default {
   },
   mounted() {
     // Geocoding de l'endroit cliqué pour faire apparaître l'adresse dans le champ correspondant. Tout de même modifiable en cas d'erreur.
-    const geocoder = new google.maps.Geocoder();
+    const geocoder = new this.google.maps.Geocoder();
     const latLng = { lat: this.placeLat, lng: this.placeLng }; // On formate correctement les coordonnées.
-    console.log(latLng);
     geocoder.geocode({ location: latLng }, (results, status) => {
       // En cas d'erreur, on met un placeholder par défaut et on récupère l'erreur en console.
       if (status !== `OK` || !results[0]) { 
+        /* eslint-disable no-console */
         console.log("Erreur de geocoding : " + status);
         this.newPlace.address = "Adresse";
         // Si tout est OK, on stock l'adresse la plus pertinente (première entrée de l'array) dans le champ après avoir coupé un morceau inutile.

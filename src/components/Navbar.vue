@@ -1,11 +1,13 @@
 <template>
+<!-- Composant Navbar de Buefy -->
   <b-navbar fixed-top class="navbar-background">
     <template slot="brand">
       <b-navbar-item>
-        <img src="../assets/logo.png" alt="Lightweight UI components for Vue.js based on Bulma" />
+        <img src="../assets/logo.png" alt="Trouvez rapidement où casser la croûte avec Casse-croûte !" />
       </b-navbar-item>
     </template>
     <template slot="end">
+      <!-- Intégration du composant switch -->
       <b-navbar-item tag="div">
           <add-place-switch></add-place-switch>
       </b-navbar-item>
@@ -19,12 +21,6 @@ import AddPlaceSwitch from "./AddPlaceSwitch";
 export default {
     components: {
     AddPlaceSwitch
-  },
-  methods: {
-    updatePlaces() {
-      this.$store.commit("launchUpdate");
-     
-    }
   }
 };
 </script>
