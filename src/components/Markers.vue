@@ -57,10 +57,10 @@
         let icon
         switch (this.marker.type) {
           case 'restaurant':
-            icon = 'https://img.icons8.com/office/40/000000/restaurant.png';
+            icon = "/icons/restaurant.png";
             break;
           case 'user':
-            icon = 'https://img.icons8.com/dusk/40/000000/marker.png';
+            icon = '/icons/user.png';
             break;
           default:
             icon = '';

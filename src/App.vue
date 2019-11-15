@@ -1,8 +1,11 @@
 <template>
   <div id="app">
+    <!-- Navbar -->
     <navbar></navbar>
     <div class="columns is-gapless">
+      <!-- Colonne de gauche : carte -->
       <map-container></map-container>
+      <!-- Colonne de droite : liste des restaurants -->
       <places-container></places-container>
     </div>
   </div>
@@ -12,7 +15,6 @@
 import Navbar from "./components/Navbar.vue";
 import MapContainer from "./components/MapContainer.vue";
 import PlacesContainer from "./components/PlacesContainer.vue";
-// import Buefy from "./style.scss";
 
 export default {
   name: "app",
@@ -47,11 +49,7 @@ export default {
 }
 
 .columns {
-  background-color: #FFECE2;
-} 
-
-.ketchup {
-  color: #F46363;
+  background-color: #ffece2;
 }
 </style>
 

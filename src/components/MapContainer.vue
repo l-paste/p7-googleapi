@@ -1,7 +1,7 @@
 <template>
   <div class="column is-three-quarters">
     
-    <!-- Container carte -->
+    <!-- Intégration du component de la carte -->
     <places-map
       :center="customCenter"
       :defaultCenter="defaultCenter"

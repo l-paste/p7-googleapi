@@ -10,7 +10,7 @@
 <script>
 // Utilisation du plugin pour charger de manière asynchrone l'API
 const apiLoad = require("google-maps-api-loader");
-import gmapsInit from '../utils/loadapi';
+import gmapsInit from "../utils/loadapi";
 
 export default {
   props: ["name", "defaultCenter"],
@@ -42,8 +42,9 @@ export default {
         center: this.defaultCenter,
         zoom: 17,
         minZoom: 17,
-        maxZoom: 18,
+        maxZoom: 19,
         fullscreenControl: false,
+        mapTypeControl: false,
         styles: [
           {
             elementType: "geometry",
@@ -70,33 +71,6 @@ export default {
             ]
           },
           {
-            featureType: "administrative",
-            elementType: "geometry.stroke",
-            stylers: [
-              {
-                color: "#c9b2a6"
-              }
-            ]
-          },
-          {
-            featureType: "administrative.land_parcel",
-            elementType: "geometry.stroke",
-            stylers: [
-              {
-                color: "#dcd2be"
-              }
-            ]
-          },
-          {
-            featureType: "administrative.land_parcel",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#ae9e90"
-              }
-            ]
-          },
-          {
             featureType: "landscape.natural",
             elementType: "geometry",
             stylers: [
@@ -107,39 +81,8 @@ export default {
           },
           {
             featureType: "poi",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#dfd2ae"
-              }
-            ]
-          },
-          {
-            featureType: "poi",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#93817c"
-              }
-            ]
-          },
-          {
-            featureType: "poi.park",
-            elementType: "geometry.fill",
-            stylers: [
-              {
-                color: "#a5b076"
-              }
-            ]
-          },
-          {
-            featureType: "poi.park",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#447530"
-              }
-            ]
+
+            stylers: [{ visibility: "off" }]
           },
           {
             featureType: "road",
@@ -205,47 +148,11 @@ export default {
             ]
           },
           {
-            featureType: "transit.line",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#dfd2ae"
-              }
-            ]
-          },
-          {
-            featureType: "transit.line",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#8f7d77"
-              }
-            ]
-          },
-          {
-            featureType: "transit.line",
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#ebe3cd"
-              }
-            ]
-          },
-          {
-            featureType: "transit.station",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#dfd2ae"
-              }
-            ]
-          },
-          {
             featureType: "water",
             elementType: "geometry.fill",
             stylers: [
               {
-                color: "#b9d3c2"
+                color: "#b9bfd3"
               }
             ]
           },
@@ -254,7 +161,7 @@ export default {
             elementType: "labels.text.fill",
             stylers: [
               {
-                color: "#92998d"
+                color: "#8d9199"
               }
             ]
           }
@@ -268,6 +175,7 @@ export default {
         map: this.map
       });
     },
+    
     boundsListener() {
       // Pour utiliser les bounds pour l'affichage des restaurants dans la liste
       this.google.maps.event.addListener(this.map, "bounds_changed", () => {

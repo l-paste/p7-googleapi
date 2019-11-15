@@ -17,11 +17,12 @@
 </template>
 
 <script>
-
+// Formulaire d'ajout de commentaire sur la fiche d'un restaurant.
 export default {
   props: ["place-id"],
   data: function() {
     return {
+      // Notre objet contenant le commentaire.
       rating: {
         author: "",
         comment: "",
@@ -30,13 +31,14 @@ export default {
     };
   },
   methods: {
-    // Envoie le nouveau commentaire au store
+    // À la confirmation du formulaire, on fait passer le commentaire sur la fonction addRating du store.
     sendNewRating(e) {
-      e.preventDefault();
+      e.preventDefault(); // On empêche la page de reload après confirmation du formulaire.
       this.$store.commit("addRating", {
         placeIdToAdd: this.placeId,
         rating: this.rating
       });
+      // On ferme le collapse et on vide les champs après envoi.
       this.$emit('close-collapse')
       this.rating.author = "";
       this.rating.comment = "";
@@ -44,10 +46,10 @@ export default {
     }
   },
   computed: {
+    // On désactive le bouton d'envoi tant que tous les champs ne sont pas remplis.
     isDisabled() {
       return !this.rating.author || !this.rating.comment || !this.rating.stars;
     }
   }
 };
 </script>
-

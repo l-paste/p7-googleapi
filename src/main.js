@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import App from './App.vue'
-import axios from 'axios'
-import VueLodash from 'vue-lodash'
+import axios from 'axios' // Pour charger le jSon local
+import VueLodash from 'vue-lodash' // Pour le tri par note
 
-import { store } from './store/store';
+import { store } from './store/store'; // Chargement du store pour qu'il soit accessible partout.
 
 Vue.prototype.$http = axios
 Vue.config.productionTip = true
