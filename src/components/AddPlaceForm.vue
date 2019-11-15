@@ -37,8 +37,7 @@ export default {
         restaurantName: "",
         address: "",
         lat: this.placeLat,
-        long: this.placeLng,
-        google: this.google
+        long: this.placeLng
       }
     };
   },
@@ -59,7 +58,8 @@ export default {
   },
   mounted() {
     // Geocoding de l'endroit cliqué pour faire apparaître l'adresse dans le champ correspondant. Tout de même modifiable en cas d'erreur.
-    const geocoder = new this.google.maps.Geocoder();
+    // eslint-disable-next-line
+    const geocoder = new google.maps.Geocoder();
     const latLng = { lat: this.placeLat, lng: this.placeLng }; // On formate correctement les coordonnées.
     geocoder.geocode({ location: latLng }, (results, status) => {
       // En cas d'erreur, on met un placeholder par défaut et on récupère l'erreur en console.

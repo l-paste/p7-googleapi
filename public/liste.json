@@ -1,10 +1,10 @@
 [
    {
       "id":1,
-      "restaurantName":"Bronco",
-      "address":"39 Rue des Petites Écuries, 75010 Paris",
-      "lat":48.705799,
-      "long":2.428788,
+      "restaurantName":"Le Zébulon",
+      "address":"5 Avenue Henri Charon, 91270 Vigneux-sur-Seine",
+      "lat":48.705780,
+      "long":2.424100,
       "ratings":[
          {
             "stars":1,
@@ -21,10 +21,10 @@
    
    {
       "id":2,
-      "restaurantName":"Babalou",
-      "address":"4 Rue Lamarck, 75018 Paris",
-      "lat":48.705846,
-      "long":2.427590,
+      "restaurantName":"Chez Mimine",
+      "address":"19 Allée Jacques Brel, 91270 Vigneux-sur-Seine",
+      "lat":48.704020,
+      "long":2.421910,
       "ratings":[
          {
             "stars":5,
@@ -35,6 +35,26 @@
             "stars":3,
             "author": "Louis",
             "comment":"J'ai trouvé ça correct, sans plus."
+         }
+      ]
+   },
+   
+   {
+      "id":3,
+      "restaurantName":"La Patte Folle",
+      "address":"37 Rue Alphonse Daudet, 91270 Vigneux-sur-Seine",
+      "lat":48.707020,
+      "long":2.432520,
+      "ratings":[
+         {
+            "stars":4,
+            "author": "Chloé",
+            "comment":"Un restaurant qui démange ! Très bon."
+         },
+         {
+            "stars":5,
+            "author": "Mathis",
+            "comment":"Passé un excellent moment dans ce restaurant, un indispensable de Vigneux !"
          }
       ]
    }
