@@ -7,7 +7,6 @@
       @map-clicked="openaddPlace"
     >
       <!-- Boucle d'affichage des markers. -->
-      <template v-slot:default="{ google, map }">
       <markers
         v-for="marker in markers"
         :key="marker.id"
@@ -17,7 +16,6 @@
       ></markers>
       <!-- Affichage du marker de l'utilisateur si on est géolocalisé. -->
       <markers v-if="userMarker !== {}" :marker="userMarker" :map="map" :google="google"></markers>
-      </template>
     </places-map>
 
     <!-- Loader qui disparaît une fois les restaurants chargés. -->
