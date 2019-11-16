@@ -1,6 +1,6 @@
 // Script pour charger l'API Google de manière asynchrone.
 
-const API_KEY = `AIzaSyDWjR8Rt6VNWdTjznzLanMbGWALoewrLeo`;
+const API_KEY = ``;
 const CALLBACK_NAME = `gmapsCallback`;
 
 let initialized = !!window.google;
