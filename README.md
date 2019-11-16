@@ -1,4 +1,5 @@
-# p7-restaurants
+# Formation OpenClassrooms - Développeur d'application - Frontend
+## Projet n°7 - Lancez votre propre site d'avis de restaurants
 
 ## Project setup
 ```
