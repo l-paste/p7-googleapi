@@ -1,5 +1,5 @@
 # OpenClassrooms - Développeur d'application - Frontend
-## Projet n°7 - pLancez votre propre site d'avis de restaurants
+## Projet n°7 - Lancez votre propre site d'avis de restaurants
 
 ## Installation
 ```
