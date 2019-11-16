@@ -1,31 +1,17 @@
-# Formation OpenClassrooms - Développeur d'application - Frontend
-## Projet n°7 - Lancez votre propre site d'avis de restaurants
+# OpenClassrooms - Développeur d'application - Frontend
+## Projet n°7 - pLancez votre propre site d'avis de restaurants
 
-## Project setup
+## Installation
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Serveur local avec hot-reload pour le développement
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Build de production (répertoire dist)
 ```
 npm run build
 ```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# p7-restaurants
