@@ -70,7 +70,6 @@ export default {
     },
 
     closeModale() {
-      console.log("coucou");
       this.isAddPlaceModalActive = false;
     },
 
