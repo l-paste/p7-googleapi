@@ -25,7 +25,7 @@
 
     <!-- Modale pour l'ajout de restaurants -->
     <b-modal :active.sync="isAddPlaceModalActive" trap-focus aria-role="dialog" aria-modal>
-      <add-place :place-lat="addPlaceLat" :place-lng="addPlaceLng"></add-place>
+      <add-place :place-lat="addPlaceLat" :place-lng="addPlaceLng" @close-modale="closeModale"></add-place>
     </b-modal>
   </div>
 </template>
@@ -67,6 +67,11 @@ export default {
       this.map = data.map;
       this.google = data.google;
       this.askGeolocation();
+    },
+
+    closeModale() {
+      console.log("coucou");
+      this.isAddPlaceModalActive = false;
     },
 
     askGeolocation() {

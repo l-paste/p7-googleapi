@@ -48,6 +48,7 @@ export default {
       this.$store.commit("addPlace", { // Ajout du nouveau restaurant au Store
         newPlace: this.newPlace
       });
+      this.$emit('close-modale')
     }
   },
   computed: {
