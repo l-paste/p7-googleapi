@@ -7,15 +7,17 @@
       @map-clicked="openaddPlace"
     >
       <!-- Boucle d'affichage des markers. -->
-      <markers
-        v-for="marker in markers"
-        :key="marker.id"
-        :marker="marker"
-        :map="map"
-        :google="google"
-      ></markers>
-      <!-- Affichage du marker de l'utilisateur si on est géolocalisé. -->
-      <markers v-if="userMarker !== {}" :marker="userMarker" :map="map" :google="google"></markers>
+      <template v-slot:default="{ google, map }">
+        <markers
+          v-for="marker in markers"
+          :key="marker.id"
+          :marker="marker"
+          :map="map"
+          :google="google"
+        ></markers>
+        <!-- Affichage du marker de l'utilisateur si on est géolocalisé. -->
+        <markers v-if="userMarker !== {}" :marker="userMarker" :map="map" :google="google"></markers>
+      </template>
     </places-map>
 
     <!-- Loader qui disparaît une fois les restaurants chargés. -->
@@ -107,7 +109,7 @@ export default {
     },
 
     handleLocationError(isBrowserOk, defaultCenter) {
-      if(isBrowserOk === true) {
+      if (isBrowserOk === true) {
         // Positionnement sur les coordonnées par défaut.
         this.map.setCenter(defaultCenter);
         this.setPlaces(this.defaultCenter);
@@ -115,24 +117,23 @@ export default {
         this.$store.commit("setCurrentBounds", this.map.getBounds());
         // Toast d'information.
         this.$buefy.toast.open({
-        duration: 4000,
-        message: `Merci d'activer la géolocalisation de votre navigateur.`,
-        position: "is-bottom",
-        type: "is-danger"
-      });
-      }
-      else {
+          duration: 4000,
+          message: `Merci d'activer la géolocalisation de votre navigateur.`,
+          position: "is-bottom",
+          type: "is-danger"
+        });
+      } else {
         // Positionnement sur les coordonnées par défaut.
         this.map.setCenter(defaultCenter);
         this.setPlaces(this.defaultCenter);
         this.$store.commit("setCurrentBounds", this.map.getBounds());
         // Toast d'information.
         this.$buefy.toast.open({
-        duration: 4000,
-        message: `La géolocalisation a rencontré une erreur, merci de bien vouloir réactualiser l'application.`,
-        position: "is-bottom",
-        type: "is-danger"
-      });
+          duration: 4000,
+          message: `La géolocalisation a rencontré une erreur, merci de bien vouloir réactualiser l'application.`,
+          position: "is-bottom",
+          type: "is-danger"
+        });
       }
     },
 
@@ -165,7 +166,8 @@ export default {
     // Génération des markers en fonction des lieux sélectionnés.
     markers() {
       const markersList = [
-        ...this.$store.getters.getSelectedPlacesList.map(place => { // Pour chaque entrée on renvoi les informations.
+        ...this.$store.getters.getSelectedPlacesList.map(place => {
+          // Pour chaque entrée on renvoi les informations.
           return {
             id: place.id,
             position: {
@@ -176,7 +178,8 @@ export default {
           };
         })
       ];
-      if (this.userMarker !== {}) { // Si géolocalisé, on ajoute le marker utilisateur à la liste.
+      if (this.userMarker !== {}) {
+        // Si géolocalisé, on ajoute le marker utilisateur à la liste.
         markersList.push(this.userMarker);
       }
       return markersList;
