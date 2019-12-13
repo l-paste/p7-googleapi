@@ -63,7 +63,7 @@ npm run build
 > zone affichée.
 
 **Choix personnels :**
-- Apprentissage du framework Vue.js avec les outils suivants en plus : Vue CLI, Vuex.
+- Apprentissage du framework Vue.js avec les extensions suivantes : Vue CLI, Vuex.
 - Utilisation du framework CSS Buefy, qui est une version Vue.js de Bulma.
 
 **Compétences évaluées :**
