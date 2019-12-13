@@ -29,7 +29,7 @@ npm run build
 > couleur spécifique sera placé à l'emplacement de l'utilisateur.
 > 
 > Une liste de restaurants est fournie sous forme de données JSON
-> présentées dans un fichier à part. [...] Affichez ces restaurants
+> présentées dans un fichier à part. Affichez ces restaurants
 > grâce à leurs coordonnées GPS sur la carte. Les restaurants qui sont
 > actuellement visibles sur la carte doivent être affichés sous forme de
 > liste sur le côté de la carte. Vous afficherez la moyenne des
@@ -67,8 +67,8 @@ npm run build
 - Utilisation du framework CSS Buefy, qui est une version Vue.js de Bulma.
 
 **Compétences évaluées :**
--   Développer une application JavaScript complète en respectant un cahier des charges.
--   Utiliser une API externe en JavaScript.
+- Développer une application JavaScript complète en respectant un cahier des charges.
+- Utiliser une API externe en JavaScript.
 
 **Livrable :**
- -   [CASSE-CROÛTE — Trouvez rapidement où casser la croûte !]([https://lpaste.alwaysdata.net/)
+- [CASSE-CROÛTE](https://lpaste.alwaysdata.net/)
