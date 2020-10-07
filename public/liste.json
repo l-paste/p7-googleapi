@@ -1,0 +1,61 @@
+[
+    {
+       "id":1,
+       "restaurantName":"Le Zébulon",
+       "address":"5 Avenue Henri Charon, 91270 Vigneux-sur-Seine",
+       "lat":48.705780,
+       "long":2.424100,
+       "ratings":[
+          {
+             "stars":1,
+             "author": "Jacob",
+             "comment":"HONTEUX !"
+          },
+          {
+             "stars":2,
+             "author": "Bernard",
+             "comment":"Tout juste mangeable. L'eau était bonne."
+          }
+       ]
+    },
+    
+    {
+       "id":2,
+       "restaurantName":"Chez Mimine",
+       "address":"19 Allée Jacques Brel, 91270 Vigneux-sur-Seine",
+       "lat":48.704020,
+       "long":2.421910,
+       "ratings":[
+          {
+             "stars":5,
+             "author": "Gertrude",
+             "comment":"Une tuerie !"
+          },
+          {
+             "stars":3,
+             "author": "Louis",
+             "comment":"J'ai trouvé ça correct, sans plus."
+          }
+       ]
+    },
+    
+    {
+       "id":3,
+       "restaurantName":"La Patte Folle",
+       "address":"37 Rue Alphonse Daudet, 91270 Vigneux-sur-Seine",
+       "lat":48.707020,
+       "long":2.432520,
+       "ratings":[
+          {
+             "stars":4,
+             "author": "Chloé",
+             "comment":"Un restaurant qui démange ! Très bon."
+          },
+          {
+             "stars":5,
+             "author": "Mathis",
+             "comment":"Passé un excellent moment dans ce restaurant, un indispensable de Vigneux !"
+          }
+       ]
+    }
+ ]
