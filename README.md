@@ -1,5 +1,6 @@
 # Projet 7 - Lancez votre propre site d'avis de restaurants
 **Formation OpenClassrooms, parcours Développeur d'application front-end**
+**Le projet est consultable à cette adresse : [CASSE-CROÛTE](https://lpaste.alwaysdata.net/).**
 
 ## Installation
 ```
@@ -16,7 +17,10 @@ npm run serve
 npm run build
 ```
 
-La clé API Google est également à renseigner.
+### Key API Google à renseigner dans fichier src/utils/loadapi.js :
+```
+const API_KEY = ``;
+```
 
 **Consignes  :** 
 >Vous avez choisi de vous lancer dans le business des avis de restaurants. Votre objectif : créer un service simple et utile qui permet d'avoir des avis sur des restaurants autour de soi.
